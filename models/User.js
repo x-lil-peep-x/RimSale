@@ -1,8 +1,8 @@
 const sequelize = require('sequelize');
 const db = require('../config/database');
-
+const role = require('./Role');
 const User = db.define('User', {
-        idUser: {
+        id: {
             type: sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
@@ -26,15 +26,21 @@ const User = db.define('User', {
         password: {
             type: sequelize.STRING
         },
-        idRole: {
-            type: sequelize.INTEGER
-        },
         active: {
             type: sequelize.BOOLEAN
-        }
-    }
-    , {
+        },
+        roleId:{
+            type: sequelize.INTEGER,
+            references:{
+                model:role,
+                key: 'id'
+            }
+        },
+    }, {
         freezeTableName: true,
         timestamps: false,
     });
+
+User.belongsTo(role);
+role.hasMany(User);
 module.exports = User;

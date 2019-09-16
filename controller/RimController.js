@@ -1,9 +1,19 @@
 let rim = require('../models/Rim');
+let detail = require('../models/Detail');
 let bcrypt = require('bcrypt-nodejs');
 
 //Obtener todos los usuarios como JSON
 function index(req, res) {
-    rim.findAll().then(users => {
+    rim.findAll(
+        {
+            include:
+                [
+                    {
+                        model: detail
+                    }
+                ]
+        }
+    ).then(users => {
         res.json(users);
     });
 }
@@ -31,22 +41,22 @@ function save(req, res) {
 
 function update(req, res) {
 
-        const updatedRim = {
-            brand: req.body.brand,
-            hoop: req.body.hoop,
-            price: req.body.price,
-            amountAvailable: req.body.amountAvailable,
-            description: req.body.description,
-            active: req.body.active,
-        };
-        rim.update(updatedRim, {where: {idRim: req.params.id}})
-            .then(user => {
-                console.log(user);
-                return res.status(404).json({message: "actualizado"});
-            })
-            .catch(function (err) {
-                return res.status(404).json({message: "Server con problemas"});
-            });
+    const updatedRim = {
+        brand: req.body.brand,
+        hoop: req.body.hoop,
+        price: req.body.price,
+        amountAvailable: req.body.amountAvailable,
+        description: req.body.description,
+        active: req.body.active,
+    };
+    rim.update(updatedRim, {where: {idRim: req.params.id}})
+        .then(user => {
+            console.log(user);
+            return res.status(404).json({message: "actualizado"});
+        })
+        .catch(function (err) {
+            return res.status(404).json({message: "Server con problemas"});
+        });
 
 }
 

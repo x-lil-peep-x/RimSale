@@ -1,8 +1,20 @@
 let order = require('../models/Order');
+let client = require('../models/Client');
+let user = require('../models/User');
 
 //Obtener todos los usuarios como JSON
 function index(req, res) {
-    order.findAll().then(orders => {
+    order.findAll({
+        include:
+            [
+                {
+                    model: client
+                },
+                {
+                    model: user
+                }
+            ]
+    }).then(orders => {
         res.json(orders);
     });
 }
@@ -29,21 +41,21 @@ function save(req, res) {
 
 function update(req, res) {
 
-        const updatedOrder = {
-            totalAmount: req.body.totalAmount,
-            totalAmountDiscount: req.body.totalAmountDiscount,
-            date: req.body.date,
-            idClient: req.body.idClient,
-            idUser: req.body.idUser,
-        };
-        order.update(updatedOrder , {where: {idSaleOrder: req.params.id}})
-            .then(user => {
-                console.log(user);
-                return res.status(404).json({message: "actualizado"});
-            })
-            .catch(function (err) {
-                return res.status(404).json({message: "Server con problemas"});
-            });
+    const updatedOrder = {
+        totalAmount: req.body.totalAmount,
+        totalAmountDiscount: req.body.totalAmountDiscount,
+        date: req.body.date,
+        idClient: req.body.idClient,
+        idUser: req.body.idUser,
+    };
+    order.update(updatedOrder, {where: {idSaleOrder: req.params.id}})
+        .then(user => {
+            console.log(user);
+            return res.status(404).json({message: "actualizado"});
+        })
+        .catch(function (err) {
+            return res.status(404).json({message: "Server con problemas"});
+        });
 
 }
 

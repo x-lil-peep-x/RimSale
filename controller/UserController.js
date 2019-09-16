@@ -1,9 +1,17 @@
-let user = require('../models/User');
-let bcrypt = require('bcrypt-nodejs');
+const user = require('../models/User');
+const role = require('../models/Role');
+const bcrypt = require('bcrypt-nodejs');
 
 //Obtener todos los usuarios como JSON
 function index(req, res) {
-    user.findAll().then(users => {
+    user.findAll({
+        include:
+            [
+                {
+                    model: role
+                }
+            ]
+    }).then(users => {
         res.json(users);
     });
 }
@@ -21,7 +29,7 @@ function save(req, res) {
             nick: req.body.nick,
             password: hash,
             active: req.body.active,
-            idRole: req.body.idRole
+            roleId: req.body.roleId
         }).then(function (data) {
             if (data) {
                 res.status(200).send({message: 'se registro'});
@@ -46,7 +54,7 @@ function update(req, res) {
             nick: req.body.nick,
             password: hash,
             active: req.body.active,
-            idRole: req.body.idRole
+            roleId: req.body.roleId
         };
         user.update(updatedUser, {where: {idUser: req.params.id}})
             .then(user => {

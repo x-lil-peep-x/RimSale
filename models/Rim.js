@@ -2,7 +2,7 @@ const sequelize = require('sequelize');
 const db = require('../config/database');
 
 const Rim = db.define('Rim', {
-        idRim: {
+        id: {
             type: sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,

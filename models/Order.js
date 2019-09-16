@@ -1,8 +1,10 @@
 const sequelize = require('sequelize');
 const db = require('../config/database');
+const client = require('./Client');
+const user = require('./User');
 
 const Order = db.define('SaleOrder', {
-        idSaleOrder: {
+        id: {
             type: sequelize.INTEGER,
             autoIncrement: true,
             allowNull: false,
@@ -17,15 +19,15 @@ const Order = db.define('SaleOrder', {
         date: {
             type: sequelize.DATE
         },
-        idClient: {
-            type: sequelize.INTEGER
-        },
-        idUser: {
-            type: sequelize.INTEGER
-        },
     }
-    , {
+    ,
+    {
         freezeTableName: true,
         timestamps: false,
     });
+//Relations
+Order.belongsTo(client);
+Order.belongsTo(user);
+user.hasMany(Order);
+client.hasMany(Order);
 module.exports = Order;
