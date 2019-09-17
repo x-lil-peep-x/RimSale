@@ -49,7 +49,7 @@ function update(req, res) {
         description: req.body.description,
         active: req.body.active,
     };
-    rim.update(updatedRim, {where: {idRim: req.params.id}})
+    rim.update(updatedRim, {where: {id: req.params.id}})
         .then(user => {
             console.log(user);
             return res.status(404).json({message: "actualizado"});
@@ -61,11 +61,12 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-    rim.destroy({where: {idRim: req.params.id}})
+    rim.destroy({where: {id: req.params.id}})
         .then(user => {
             return res.status(404).json({message: "Eliminado"});
         })
         .catch(function (err) {
+            console.log(err);
             return res.status(404).json({message: "No ha sido eliminado"}); // server problems
         });
 }

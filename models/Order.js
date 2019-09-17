@@ -19,6 +19,12 @@ const Order = db.define('SaleOrder', {
         date: {
             type: sequelize.DATE
         },
+        clientId:{
+            type: sequelize.STRING
+        },
+        userId:{
+            type: sequelize.STRING
+        }
     }
     ,
     {

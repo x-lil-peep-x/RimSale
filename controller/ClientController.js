@@ -31,32 +31,33 @@ function save(req, res) {
 
 function update(req, res) {
 
-        const updatedRim = {
-            ci: req.body.ci,
-            firstName: req.body.firstName,
-            secondName: req.body.secondName,
-            lastName: req.body.lastName,
-            motherLastName: req.body.motherLastName,
-            phone: req.body.phone,
-            active: req.body.active,
-        };
-        client.update(updatedRim, {where: {idClient: req.params.id}})
-            .then(user => {
-                console.log(user);
-                return res.status(404).json({message: "actualizado"});
-            })
-            .catch(function (err) {
-                return res.status(404).json({message: "Server con problemas"});
-            });
+    const updatedRim = {
+        ci: req.body.ci,
+        firstName: req.body.firstName,
+        secondName: req.body.secondName,
+        lastName: req.body.lastName,
+        motherLastName: req.body.motherLastName,
+        phone: req.body.phone,
+        active: req.body.active,
+    };
+    client.update(updatedRim, {where: {id: req.params.id}})
+        .then(user => {
+            console.log(user);
+            return res.status(404).json({message: "actualizado"});
+        })
+        .catch(function (err) {
+            return res.status(404).json({message: "Server con problemas"});
+        });
 
 }
 
 function destroy(req, res) {
-    client.destroy({where: {idClient: req.params.id}})
+    client.destroy({where: {id: req.params.id}})
         .then(user => {
             return res.status(404).json({message: "Eliminado"});
         })
         .catch(function (err) {
+            console.log(err);
             return res.status(404).json({message: "No ha sido eliminado"}); // server problems
         });
 }

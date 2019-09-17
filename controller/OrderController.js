@@ -25,8 +25,8 @@ function save(req, res) {
         totalAmount: req.body.totalAmount,
         totalAmountDiscount: req.body.totalAmountDiscount,
         date: req.body.date,
-        idClient: req.body.idClient,
-        idUser: req.body.idUser,
+        clientId: req.body.clientId,
+        userId: req.body.userId,
     }).then(function (data) {
         if (data) {
             res.status(200).send({message: 'se registro'});
@@ -45,10 +45,10 @@ function update(req, res) {
         totalAmount: req.body.totalAmount,
         totalAmountDiscount: req.body.totalAmountDiscount,
         date: req.body.date,
-        idClient: req.body.idClient,
-        idUser: req.body.idUser,
+        clientId: req.body.clientId,
+        userId: req.body.userId,
     };
-    order.update(updatedOrder, {where: {idSaleOrder: req.params.id}})
+    order.update(updatedOrder, {where: {id: req.params.id}})
         .then(user => {
             console.log(user);
             return res.status(404).json({message: "actualizado"});
@@ -60,11 +60,12 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-    order.destroy({where: {idSaleOrder: req.params.id}})
+    order.destroy({where: {id: req.params.id}})
         .then(order => {
             return res.status(404).json({message: "Eliminado"});
         })
         .catch(function (err) {
+            console.log(err);
             return res.status(404).json({message: "No ha sido eliminado"}); // server problems
         });
 }

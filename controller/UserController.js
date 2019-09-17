@@ -56,7 +56,7 @@ function update(req, res) {
             active: req.body.active,
             roleId: req.body.roleId
         };
-        user.update(updatedUser, {where: {idUser: req.params.id}})
+        user.update(updatedUser, {where: {id: req.params.id}})
             .then(user => {
                 console.log(user);
                 return res.status(404).json({message: "actualizado"});
@@ -68,11 +68,12 @@ function update(req, res) {
 }
 
 function destroy(req, res) {
-    user.destroy({where: {idUser: req.params.id}})
+    user.destroy({where: {id: req.params.id}})
         .then(user => {
             return res.status(404).json({message: "Eliminado"});
         })
         .catch(function (err) {
+            console.log(err);
             return res.status(404).json({message: "No ha sido eliminado"}); // server problems
         });
 }
