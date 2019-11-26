@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-module.exports = new Sequelize('TireSales', 'sa', 'JustDoIt123', {
+module.exports = new Sequelize('TireSales', 'sa', 'Secret12345', {
     host: 'localhost',
     dialect:'mssql',
 

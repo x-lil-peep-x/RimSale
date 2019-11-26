@@ -16,6 +16,23 @@ function index(req, res) {
     });
 }
 
+function getById(request, response) {
+    user.findOne({where:{id: request.params.id }}).then(user => {
+        response.json(user);
+    });
+    user.findOne({where:{id: request.params.id }},
+    {
+        include:
+            [
+                {
+                    model: role
+                }
+            ]
+    }).then(users => {
+        res.json(users);
+    });
+}
+
 //Guardar un nuevo Usuario
 function save(req, res) {
     console.log(req.body);
@@ -59,7 +76,7 @@ function update(req, res) {
         user.update(updatedUser, {where: {id: req.params.id}})
             .then(user => {
                 console.log(user);
-                return res.status(404).json({message: "actualizado"});
+                return res.status(200).json({message: "actualizado"});
             })
             .catch(function (err) {
                 return res.status(404).json({message: "Server con problemas"});
@@ -70,7 +87,7 @@ function update(req, res) {
 function destroy(req, res) {
     user.destroy({where: {id: req.params.id}})
         .then(user => {
-            return res.status(404).json({message: "Eliminado"});
+            return res.status(200).json({message: "eliminado"});;
         })
         .catch(function (err) {
             console.log(err);
@@ -82,5 +99,6 @@ module.exports = {
     destroy,
     update,
     index,
-    save
+    save,
+    getById
 };
