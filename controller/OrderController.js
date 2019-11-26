@@ -40,7 +40,6 @@ function save(req, res) {
 //     .then(user => res.json(user));
 
 function update(req, res) {
-
     const updatedOrder = {
         totalAmount: req.body.totalAmount,
         totalAmountDiscount: req.body.totalAmountDiscount,
@@ -56,7 +55,6 @@ function update(req, res) {
         .catch(function (err) {
             return res.status(404).json({message: "Server con problemas"});
         });
-
 }
 
 function destroy(req, res) {

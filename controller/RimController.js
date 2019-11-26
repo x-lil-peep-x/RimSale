@@ -7,11 +7,7 @@ function index(req, res) {
     rim.findAll(
         {
             include:
-                [
-                    {
-                        model: detail
-                    }
-                ]
+                [ { model: detail } ]
         }
     ).then(users => {
         res.json(users);
@@ -49,10 +45,11 @@ function update(req, res) {
         description: req.body.description,
         active: req.body.active,
     };
+    console.log(updatedRim);
     rim.update(updatedRim, {where: {id: req.params.id}})
         .then(user => {
             console.log(user);
-            return res.status(404).json({message: "actualizado"});
+            return res.status(200).json({message: "Actualizado"});
         })
         .catch(function (err) {
             return res.status(404).json({message: "Server con problemas"});
@@ -63,7 +60,7 @@ function update(req, res) {
 function destroy(req, res) {
     rim.destroy({where: {id: req.params.id}})
         .then(user => {
-            return res.status(404).json({message: "Eliminado"});
+            return res.status(200).json({message: "Eliminado"});
         })
         .catch(function (err) {
             console.log(err);

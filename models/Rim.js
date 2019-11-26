@@ -24,7 +24,7 @@ const Rim = db.define('Rim', {
             type: sequelize.STRING
         },
         active: {
-            type: sequelize.BOOLEAN
+            type: sequelize.STRING
         }
     }
     , {

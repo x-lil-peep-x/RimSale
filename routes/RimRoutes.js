@@ -6,6 +6,6 @@ const api = express.Router();
 api.get('/index',RimController.index);
 api.post('/create',RimController.save);
 api.put('/update/:id',RimController.update);
-api.put('/delete/:id',RimController.destroy);
+api.delete('/delete/:id',RimController.destroy);
 
 module.exports = api;
