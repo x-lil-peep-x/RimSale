@@ -6,6 +6,7 @@ const api = express.Router();
 api.get('/index',ClientController.index);
 api.post('/create',ClientController.save);
 api.put('/update/:id',ClientController.update);
-api.put('/delete/:id',ClientController.destroy);
+api.delete('/delete/:id',ClientController.destroy);
+api.get('/:id',ClientController.getById);
 
 module.exports = api;
