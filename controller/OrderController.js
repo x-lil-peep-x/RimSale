@@ -1,7 +1,7 @@
 let order = require('../models/Order');
 let client = require('../models/Client');
 let user = require('../models/User');
-
+let detail = require('../models/Detail');
 //Obtener todos los usuarios como JSON
 function index(req, res) {
     order.findAll({
@@ -12,6 +12,9 @@ function index(req, res) {
                 },
                 {
                     model: user
+                },
+                {
+                    model: detail
                 }
             ]
     }).then(orders => {

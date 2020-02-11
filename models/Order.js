@@ -2,7 +2,7 @@ const sequelize = require('sequelize');
 const db = require('../config/database');
 const client = require('./Client');
 const user = require('./User');
-
+const detail = require('./Detail');
 const Order = db.define('SaleOrder', {
         id: {
             type: sequelize.INTEGER,
@@ -36,4 +36,5 @@ Order.belongsTo(client);
 Order.belongsTo(user);
 user.hasMany(Order);
 client.hasMany(Order);
+
 module.exports = Order;
